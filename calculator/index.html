@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            color: white;
+        }
+        .container{
+            height: 770px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image: url("bgimage.jpg");
+            z-index: 0;
+        }
+        #calculator {
+            width: 300px;
+            height: 400px;
+            margin: auto;
+            border: 3px solid white;
+            padding: 10px;
+            border-radius: 10px;
+            z-index: 1;
+        }
+        
+        #display {
+            background: transparent;
+            width: 280px;
+            height: 50px;
+            font-size: 24px;
+            text-align: right;
+            margin-bottom: 10px;
+            border: 2px solid white;
+            border-radius: 5px;
+        }
+
+        .button {
+            width: 60px;
+            height: 60px;
+            font-size: 24px;
+            margin: 5px;
+            background: transparent;
+            border: 2px solid white;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="calculator">
+            <input id="display" type="text" value="0" readonly>
+            <div>
+                <button class="button" onclick="clearDisplay()">C</button>
+                <button class="button" onclick="deleteDigit()">DEL</button>
+                <button class="button" onclick="appendDigit('/')">/</button>
+                <button class="button" onclick="appendDigit('*')">*</button>
+            </div>
+            <div>
+                <button class="button" onclick="appendDigit('7')">7</button>
+                <button class="button" onclick="appendDigit('8')">8</button>
+                <button class="button" onclick="appendDigit('9')">9</button>
+                <button class="button" onclick="appendDigit('-')">-</button>
+            </div>
+            <div>
+                <button class="button" onclick="appendDigit('4')">4</button>
+                <button class="button" onclick="appendDigit('5')">5</button>
+                <button class="button" onclick="appendDigit('6')">6</button>
+                <button class="button" onclick="appendDigit('+')">+</button>
+            </div>
+            <div>
+                <button class="button" onclick="appendDigit('1')">1</button>
+                <button class="button" onclick="appendDigit('2')">2</button>
+                <button class="button" onclick="appendDigit('3')">3</button>
+                <button class="button" onclick="calculateResult()">=</button>
+            </div>
+            <div>
+                <button class="button" onclick="appendDigit('0')" style="width: 130px;">0</button>
+                <button class="button" onclick="appendDigit('.')">.</button>            
+            </div>        
+        </div>
+    </div>
+
+    <script>
+
+        // Get the display element
+        var display = document.getElementById("display");
+
+        // Function to clear the display
+        function clearDisplay() {
+            display.value = "0";
+        }
+
+        // Function to delete the last digit
+        function deleteDigit() {
+            var value = display.value;
+            if (value.length > 1) {
+                display.value = value.slice(0, -1);
+            } else {
+                display.value = "0";
+            }
+        }
+
+        // Function to append a digit or an operator
+        function appendDigit(digit) {
+            var value = display.value;
+            if (value == "0") {
+                display.value = digit;
+            } else {
+                display.value += digit;
+            }
+        }
+
+        // Function to calculate the result
+        function calculateResult() {
+            var value = display.value;
+            try {
+                var result = eval(value);
+                display.value = result;
+            } catch (error) {
+                alert("Invalid expression");
+                clearDisplay();
+            }
+        }
+
+    </script>
+</body>
+</html>
